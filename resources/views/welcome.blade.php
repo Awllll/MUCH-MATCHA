@@ -94,7 +94,7 @@
                         <img src="{{ asset($item->gambar) }}" alt="{{ $item->nama }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out" onerror="this.onerror=null; this.src='https://placehold.co/400x300?text=No+Image';">
                         <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition duration-300"></div>
                         @if(isset($item->kategori))
-                        <div class="absolute top-4 left-4"><span class="bg-white/95 backdrop-blur text-green-800 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm uppercase tracking-wide">{{ $item->kategori->nama_kategori }}</span></div>
+                        <div class="absolute top-4 left-4"><span class="bg-white/95 backdrop-blur text-green-800 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm uppercase tracking-wide">{{ $item->kategori->nama ?? ($item->kategori->nama_kategori ?? 'Matcha Special') }}</span></div>
                         @endif
                     </div>
                     <div class="p-6 flex flex-col flex-grow">

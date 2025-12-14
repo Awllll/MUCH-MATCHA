@@ -6,23 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaksi extends Model
 {
-     protected $table = 'transaksi';
-
+    protected $table = 'transaksi';
     protected $fillable = [
-        'pengguna_id',
-        'metode_pembayaran_id',
+        'user_id',
+        'kode_transaksi',
         'nama_pembeli',
         'total_harga',
+        'metode_pembayaran', // Ini string, bukan foreign key
+        'status'
     ];
 
-    public function pengguna()
+    public function user()
     {
-        return $this->belongsTo(Pengguna::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function metodePembayaran()
+    public function getMetodePembayaranNamaAttribute()
     {
-        return $this->belongsTo(MetodePembayaran::class);
+        return ucfirst($this->metode_pembayaran);
     }
 
     public function detail()
@@ -33,5 +34,11 @@ class Transaksi extends Model
     public function detailTransaksi()
     {
         return $this->hasMany(DetailTransaksi::class, 'transaksi_id', 'id');
+    }
+
+    // Scope untuk transaksi hari ini
+    public function scopeHariIni($query)
+    {
+        return $query->whereDate('created_at', today());
     }
 }

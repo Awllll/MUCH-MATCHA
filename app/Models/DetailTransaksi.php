@@ -39,6 +39,8 @@ class DetailTransaksi extends Model
 
     public function topping()
     {
-        return $this->hasMany(DetailTransaksiTopping::class);
+        return $this->belongsToMany(Topping::class, 'detail_transaksi_topping')
+                    ->withPivot('harga_topping_saat_transaksi')
+                    ->withTimestamps();
     }
 }
